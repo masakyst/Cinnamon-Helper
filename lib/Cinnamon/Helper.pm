@@ -54,7 +54,7 @@ sub _ssh {
 
 sub _scp_put {
     my ($host, $local_file, $remote_dir, $user) = @_;
-    my $ssh = ssh($host);
+    my $ssh = Cinnamon::Helper::_ssh($host);
     $ssh->scp_put({copy_attrs => 1, quiet => 0}, $local_file, $remote_dir);
     if ($user) {
         $ssh->system("chown $user ".Path::Class::file($remote_dir, File::Basename::basename($local_file))->absolute->stringify);
@@ -63,7 +63,7 @@ sub _scp_put {
 
 sub _scp_get {
     my ($host, $remote_file, $local_file) = @_;
-    ssh($host)->scp_get({copy_attrs => 1, quiet => 0}, $remote_file, $local_file);
+    Cinnamon::Helper::_ssh($host)->scp_get({copy_attrs => 1, quiet => 0}, $remote_file, $local_file);
 }
 
 
