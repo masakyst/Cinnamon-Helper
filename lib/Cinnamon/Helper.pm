@@ -1,7 +1,6 @@
 package Cinnamon::Helper;
 use strict;
 use warnings;
-use parent qw(Exporter);
 use Cinnamon::DSL;
 
 our $VERSION = "0.01";
@@ -55,7 +54,6 @@ sub _ssh {
 
 sub _scp_put {
     my ($host, $local_file, $remote_dir, $user) = @_;
-    say $user;
     my $ssh = ssh($host);
     $ssh->scp_put({copy_attrs => 1, quiet => 0}, $local_file, $remote_dir);
     if ($user) {
