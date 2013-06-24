@@ -12,10 +12,10 @@ subtest "cmd" => sub {
     Cinnamon::Helper::clear_commands();
 };
 
-subtest "shell" => sub {
+subtest "execute command chain" => sub {
     cmd q{ps};
     cmd q{ls -la};
-    is "ps && ls -la", chain();
+    is "ps && ls -la", shell();
     my @cmds = Cinnamon::Helper::commands();
     is_deeply [], \@cmds;
 };
