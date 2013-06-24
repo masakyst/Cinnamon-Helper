@@ -12,7 +12,7 @@ subtest "cmd" => sub {
     Cinnamon::Helper::clear_commands();
 };
 
-subtest "chain" => sub {
+subtest "shell" => sub {
     cmd q{ps};
     cmd q{ls -la};
     is "ps && ls -la", chain();

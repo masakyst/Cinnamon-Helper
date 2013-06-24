@@ -10,15 +10,15 @@ Cinnamon::Helper - It's a simple helper tool of Cinnamon
     # Exports some functions
     use Cinnamon::Helper;
 
-    # Chain commands 
+    # execute Chain commands 
     cmd q{cd /tmp};
     cmd q{ls -la};
-    run chain;
+    run shell;
 
     # Execute work user(hoge)
     cmd q{cd /tmp};
     cmd q{./cpanm -l extlib JSON::XS};
-    run user('hoge', chain);
+    run user('hoge', shell);
 
     # scp put/get wrapper
     scp_put $host, 'start_server.pl', '/home/cloudf/cloudforecast/';

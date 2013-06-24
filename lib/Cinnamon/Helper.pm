@@ -11,7 +11,7 @@ sub import {
     no strict 'refs';
     my $pkg = caller(0);
     *{"$pkg\::cmd"}      = \&_cmd;
-    *{"$pkg\::chain"}    = \&_chain;
+    *{"$pkg\::shell"}    = \&_shell;
     *{"$pkg\::user"}     = \&_user;
     *{"$pkg\::ssh"}      = \&_ssh;
     *{"$pkg\::scp_put"}  = \&_scp_put;
@@ -32,7 +32,7 @@ sub _cmd {
     push @COMMANDS, shift;
 }
 
-sub _chain {
+sub _shell {
     my $line = join ' && ', @COMMANDS;
     @COMMANDS = (); #initialize
     return $line;
@@ -81,15 +81,15 @@ Cinnamon::Helper - It's a simple helper tool of Cinnamon
     # Exports some functions
     use Cinnamon::Helper;
 
-    # Chain commands 
+    # execute Chain commands 
     cmd q{cd /tmp};
     cmd q{ls -la};
-    run chain;
+    run shell;
 
     # Execute work user(hoge)
     cmd q{cd /tmp};
     cmd q{./cpanm -l extlib JSON::XS};
-    run user('hoge', chain);
+    run user('hoge', shell);
 
     # scp put/get wrapper
     scp_put $host, 'start_server.pl', '/home/cloudf/cloudforecast/';
