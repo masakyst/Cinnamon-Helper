@@ -4,7 +4,7 @@
       "Masaaki Saito <masakyst.public@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v0.4.6, CPAN::Meta::Converter version 2.130880",
+   "generated_by" : "Minilla/v0.5.3, CPAN::Meta::Converter version 2.130880",
    "license" : [
       "perl_5"
    ],
@@ -42,7 +42,7 @@
       },
       "runtime" : {
          "requires" : {
-            "perl" : "5.008005"
+            "Cinnamon" : "0"
          }
       },
       "test" : {
@@ -52,5 +52,16 @@
       }
    },
    "release_status" : "unstable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/masakyst/Cinnamon-Helper/issues"
+      },
+      "homepage" : "https://github.com/masakyst/Cinnamon-Helper",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/masakyst/Cinnamon-Helper.git",
+         "web" : "https://github.com/masakyst/Cinnamon-Helper"
+      }
+   },
    "version" : "0.01"
 }

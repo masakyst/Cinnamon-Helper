@@ -4,9 +4,6 @@ Cinnamon::Helper - It's a simple helper tool of Cinnamon
 
 # SYNOPSIS
 
-    use strict;
-    use warnings;
-
     # Exports some functions
     use Cinnamon::Helper;
 
@@ -24,10 +21,9 @@ Cinnamon::Helper - It's a simple helper tool of Cinnamon
     scp_put $host, 'start_server.pl', '/home/cloudf/cloudforecast/';
     scp_get $host, '.ssh/id_rsa', 'hoge.pem';
 
-
 # DESCRIPTION
 
-Cinnamon::Helper is a simple helper tool of Cinnamon
+Cinnamon::Helper is a simple helper tool of Cinnamon 
 
 # LICENSE
 
