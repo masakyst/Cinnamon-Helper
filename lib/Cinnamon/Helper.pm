@@ -33,7 +33,13 @@ sub _cmd {
 }
 
 sub _shell {
+    my ($type, $value) = @_;
     my $line = join ' && ', @COMMANDS;
+    if (defined $type and $type eq 'escape') {
+        Carp::croak "failed escape quote: [${value}]" unless $value =~ m/('|")/;
+        my $quote = "\\".$value;
+        $line =~ s/$value/$quote/gs;
+    }
     @COMMANDS = (); #initialize
     return $line;
 }

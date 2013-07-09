@@ -20,6 +20,15 @@ subtest "execute command chain" => sub {
     is_deeply [], \@cmds;
 };
 
+subtest "escape single quote" => sub {
+    cmd q{echo 'test1'};
+    cmd q{echo 'test2'};
+    is  q{echo \\'test1\\' && echo \\'test2\\'}, shell(escape => q{'});
+    cmd q{echo "test1"};
+    cmd q{echo "test2"};
+    is  q{echo \\"test1\\" && echo \\"test2\\"}, shell(escape => q{"});
+};
+
 subtest "user" => sub {
     is 'runuser -l cloudf -c "ls -la"', user('cloudf', "ls -la");
 };
