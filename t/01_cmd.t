@@ -29,6 +29,11 @@ subtest "escape single quote" => sub {
     is  q{echo \\"test1\\" && echo \\"test2\\"}, shell(escape => q{"});
 };
 
+subtest "sh -c" => sub {
+    cmd q{ls -la};
+    is  q{sh -c 'ls -la'}, sh { shell };
+};
+
 subtest "user" => sub {
     is 'runuser -l cloudf -c "ls -la"', user('cloudf', "ls -la");
 };

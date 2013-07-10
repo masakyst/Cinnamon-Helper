@@ -12,6 +12,8 @@ sub import {
     my $pkg = caller(0);
     *{"$pkg\::cmd"}      = \&_cmd;
     *{"$pkg\::shell"}    = \&_shell;
+    *{"$pkg\::sh"}       = \&_sh;
+    *{"$pkg\::su"}       = \&_su;
     *{"$pkg\::user"}     = \&_user;
     *{"$pkg\::ssh"}      = \&_ssh;
     *{"$pkg\::scp_put"}  = \&_scp_put;
@@ -42,6 +44,18 @@ sub _shell {
     }
     @COMMANDS = (); #initialize
     return $line;
+}
+
+sub _sh(&) {
+    my $code = shift;
+    my $shell = $code->();
+    return sprintf("sh -c '%s'", $shell);
+}
+
+sub _su {
+    my $change_user = shift;
+    set user => $change_user;
+    return get 'user';
 }
 
 sub _user {
