@@ -6,18 +6,13 @@ use Cinnamon::DSL;
 our $VERSION = "0.01";
 
 sub import {
-    strict->import;
-    warnings->import;
-    no strict 'refs';
-    my $pkg = caller(0);
-    *{"$pkg\::cmd"}      = \&_cmd;
-    *{"$pkg\::shell"}    = \&_shell;
-    *{"$pkg\::sh"}       = \&_sh;
-    *{"$pkg\::su"}       = \&_su;
-    *{"$pkg\::user"}     = \&_user;
-    *{"$pkg\::ssh"}      = \&_ssh;
-    *{"$pkg\::scp_put"}  = \&_scp_put;
-    *{"$pkg\::scp_get"}  = \&_scp_get;
+    { no strict 'refs';
+        my $pkg = caller(0);
+        my @export_cmds =qw(cmd shell sh su user ssh scp_get scp_put);
+        foreach my $import_cmd (@export_cmds) {
+            *{"$pkg\::$import_cmd"} = *{"_$import_cmd"};
+        }
+    }
 }
 
 my @COMMANDS  = (); 

@@ -36,6 +36,7 @@ subtest "sh -c" => sub {
 
 subtest "user" => sub {
     is 'runuser -l cloudf -c "ls -la"', user('cloudf', "ls -la");
+    is 'runuser -l cloudf -c "ls -la"', user(cloudf => "ls -la");
 };
 
 done_testing;
