@@ -48,8 +48,11 @@ sub _sh(&) {
 }
 
 sub _su {
-    my $change_user = shift;
+    my ($change_user, $password) = @_;
     set user => $change_user;
+    if ($password) {
+        set password => $password;
+    }
     return get 'user';
 }
 
