@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 use Cinnamon::DSL;
-use Cinnamon::Context;
+#use Cinnamon::Context;
 use Cinnamon::Helper;
 
 # todo: 0.25 
