@@ -8,7 +8,7 @@ our $VERSION = "0.01";
 sub import {
     { no strict 'refs';
         my $pkg = caller(0);
-        my @export_cmds =qw(cmd shell sh su user ssh scp_get scp_put);
+        my @export_cmds =qw(cmd shell sh user ssh scp_get scp_put);
         foreach my $import_cmd (@export_cmds) {
             *{"$pkg\::$import_cmd"} = *{"_$import_cmd"};
         }
@@ -45,15 +45,6 @@ sub _sh(&) {
     my $code = shift;
     my $shell = $code->();
     return sprintf("sh -c '%s'", $shell);
-}
-
-sub _su {
-    my ($change_user, $password) = @_;
-    set user => $change_user;
-    if ($password) {
-        set password => $password;
-    }
-    return get 'user';
 }
 
 sub _user {

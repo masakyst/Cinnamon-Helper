@@ -2,11 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 use Cinnamon::DSL;
-#use Cinnamon::Context;
 use Cinnamon::Helper;
-
-# todo: 0.25 
-# $Cinnamon::Context::CTX = Cinnamon::Context->new;
 
 subtest "cmd" => sub {
     cmd q{ls -la};
@@ -43,14 +39,5 @@ subtest "user" => sub {
     is 'runuser -l cloudf -c "ls -la"', user('cloudf', "ls -la");
     is 'runuser -l cloudf -c "ls -la"', user(cloudf => "ls -la");
 };
-
-subtest "su" => sub {
-    su 'hoge';
-    is 'hoge', get('user');
-    su 'fuga', '12345';
-    is 'fuga', get('user');
-    is '12345', get('password');
-};
-
 
 done_testing;
