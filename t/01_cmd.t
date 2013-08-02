@@ -2,7 +2,11 @@ use strict;
 use warnings;
 use Test::More;
 use Cinnamon::DSL;
+use Cinnamon::Context;
 use Cinnamon::Helper;
+
+# 0.25 
+$Cinnamon::Context::CTX = Cinnamon::Context->new;
 
 subtest "cmd" => sub {
     cmd q{ls -la};
