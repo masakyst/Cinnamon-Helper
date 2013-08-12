@@ -40,4 +40,12 @@ subtest "user" => sub {
     is 'runuser -l cloudf -c "ls -la"', user(cloudf => "ls -la");
 };
 
+subtest "write_file" => sub {
+    my $path = '/etc/hoge.conf';
+    my $cont = "abcd
+efg
+hij";
+    is "cat <<__EOT__> ${path}\n${cont}\n__EOT__\n", write_file($path => $cont);
+};
+
 done_testing;

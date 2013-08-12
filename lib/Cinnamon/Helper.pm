@@ -8,7 +8,7 @@ our $VERSION = "0.01";
 sub import {
     { no strict 'refs';
         my $pkg = caller(0);
-        my @export_cmds =qw(cmd shell sh user ssh scp_get scp_put);
+        my @export_cmds =qw(cmd shell sh user ssh scp_get scp_put write_file);
         foreach my $import_cmd (@export_cmds) {
             *{"$pkg\::$import_cmd"} = *{"_$import_cmd"};
         }
@@ -73,6 +73,11 @@ sub _scp_put {
 sub _scp_get {
     my ($host, $remote_file, $local_file) = @_;
     Cinnamon::Helper::_ssh($host)->scp_get({copy_attrs => 1, quiet => 0}, $remote_file, $local_file);
+}
+
+sub _write_file {
+    my ($filepath, $content) = @_;
+    return sprintf("cat <<__EOT__> %s\n%s\n__EOT__\n", $filepath, $content);
 }
 
 
