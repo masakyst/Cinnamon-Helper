@@ -2,6 +2,7 @@ package Cinnamon::Helper;
 use strict;
 use warnings;
 use Cinnamon::DSL;
+use MIME::Base64;
 
 our $VERSION = "0.01";
 
@@ -44,7 +45,7 @@ sub _shell {
 sub _sh(&) {
     my $code = shift;
     my $shell = $code->();
-    return sprintf("sh -c '%s'", $shell);
+    return sprintf("bash -c '%s'", $shell);
 }
 
 sub _user {
@@ -77,7 +78,8 @@ sub _scp_get {
 
 sub _write_file {
     my ($filepath, $content) = @_;
-    return sprintf("cat <<__EOT__> %s\n%s\n__EOT__\n", $filepath, $content);
+    # return sprintf("cat <<\\_EOT_>> %s\n%s\n_EOT_\n", $filepath, $content);
+    return sprintf(q{perl -MMIME::Base64 -MIO::File -e 'IO::File->new($ARGV[0], ">")->print(decode_base64($ARGV[1]))' %s '%s'}, $filepath, encode_base64($content));
 }
 
 

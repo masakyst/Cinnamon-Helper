@@ -3,6 +3,7 @@ use warnings;
 use Test::More;
 use Cinnamon::DSL;
 use Cinnamon::Helper;
+use MIME::Base64;
 
 subtest "cmd" => sub {
     cmd q{ls -la};
@@ -30,9 +31,9 @@ subtest "escape single quote" => sub {
     is  q{echo \\"test1\\" && echo \\"test2\\"}, shell(escape => q{"});
 };
 
-subtest "sh -c" => sub {
+subtest "bash -c" => sub {
     cmd q{ls -la};
-    is  q{sh -c 'ls -la'}, sh { shell };
+    is  q{bash -c 'ls -la'}, sh { shell };
 };
 
 subtest "user" => sub {
@@ -45,7 +46,8 @@ subtest "write_file" => sub {
     my $cont = "abcd
 efg
 hij";
-    is "cat <<__EOT__> ${path}\n${cont}\n__EOT__\n", write_file($path => $cont);
+#is "cat <<\\_EOT_>> ${path}\n${cont}\n_EOT_\n", write_file($path => $cont);
+    is sprintf('perl -MMIME::Base64 -MIO::File -e \'IO::File->new($ARGV[0], ">")->print(decode_base64($ARGV[1]))\' %s \'%s\'', $path, encode_base64($cont)), write_file($path => $cont);
 };
 
 done_testing;
